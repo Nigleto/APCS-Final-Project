@@ -21,6 +21,14 @@ public class User extends StockAPI{
         this.password = password;
     }
 
+    public String getEmail(){
+        return this.email;
+    }
+
+    public String getPassword(){
+        return this.password;
+    }
+
     public ArrayList<Stock> getWatchlist(){
         return this.watchlist;
     }
