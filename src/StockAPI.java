@@ -79,7 +79,7 @@ public class StockAPI {
 
             //System.out.print(url);
         } catch (Exception e) {
-            e.printStackTrace();
+            start();
         }
     }
 
