@@ -1,3 +1,4 @@
+package src;
 import java.net.URL;
 
 public class Stock{
