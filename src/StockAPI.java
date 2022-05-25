@@ -61,20 +61,6 @@ public class StockAPI {
 
             }
 
-            // if(!keyInput.equals("addWL") | !keyInput.equals("addPort")){
-            //     StockEvent stockWithKey = new StockEvent(keyInput, url);
-            //     System.out.println(stockWithKey.getValue());
-            // }
-            // else if(keyInput.equals("addWL")){
-            //     Stock stock = new Stock(ticker, url);
-            //     //addWatchlistStock(stock);
-            //     System.out.println("Done");
-            // }
-            // else if(keyInput.equals("addPort")){
-            //     Stock stock = new Stock(ticker, url);
-            //     //addPortfolioStock(stock);
-            //     System.out.println("Done");
-            // }
             
 
             //System.out.print(url);
@@ -96,12 +82,11 @@ public class StockAPI {
     }
 
     public void loop(){
+        boolean start = false;
         Scanner scan = new Scanner(System.in);
-        
         System.out.println("Would you like to start? | y/n");
         String play = scan.nextLine();
 
-        boolean start = false;
         if(play.equals("y")){
             start = true;
         }
@@ -113,14 +98,24 @@ public class StockAPI {
             if(play.equals("y")){
                 continue;
             }
-            else{
+            else if(play.equals("n")){
                 start = false;
+                System.out.print("Thanks for using Nigel and Nick's Stock API");
             }
-
-
+            else{
+                System.out.print("Please enter either y or n")
+                this.loop();
+            }
         }
-        System.out.println("Thanks for using Nigel and Nick's Stock API!");
-        
+
+        else if(play.equals("n")){
+            System.out.print("Thanks for using Nigel and Nick's Stock API!")
+            break;
+        }
+        else{
+            System.out.print("Please enter either y or n");
+            this.loop;
+        } 
 
     }
 

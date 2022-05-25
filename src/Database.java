@@ -8,10 +8,7 @@ public class Database {
 
     public void AddUser(User e){
         users.add(e);
-        try {
-            FileOutputStream file = new FileOutputStream("Database.json");
-            ObjectOutputStream out = new ObjectOutputStream(file);
-        }
+        
 
     }
     //String wherearemypants = "/laundryroom/dryer/pants.java";
