@@ -6,13 +6,16 @@ import java.util.*;
 
 public class StockAPI{
     static User user;
-    public static Database db;
+    static Database db = new Database();
     // I MIGHT HAVE TO CHANGE THIS!!!!
 
     public static void main(String[] args) {
+        //db.Deserialize();
         db.Deserialize();
+
         StockAPI api = new StockAPI();
         api.loop();
+        db.Sererialize();
         
     }
 
@@ -100,7 +103,7 @@ public class StockAPI{
 
         if(play.equals("n")){
             System.out.print("Thanks for using Nigel and Nick's Stock API!");
-            return;
+            start = false;
         }
 
         else if(!play.equals("y") && !play.equals("n")){
@@ -117,8 +120,9 @@ public class StockAPI{
                 continue;
             }
             if(play.equals("n")){
-                start = false;
+                //start = false;
                 System.out.print("Thanks for using Nigel and Nick's Stock API");
+                break;
             }
             else if(!play.equals("y") && !play.equals("n")){
                 System.out.println("Please enter either y or n. ");
@@ -154,6 +158,7 @@ public class StockAPI{
                 email += scan.nextLine();
                 System.out.println("Pass: ");
                 pass += scan.nextLine();
+                user = new User(email, pass);
                 db.getUserlist().add(user);
                 x = false;
             }

@@ -1,8 +1,9 @@
 package src;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class User{
+public class User implements Serializable{
     private ArrayList<Stock> watchlist;
     private ArrayList<Stock> portfolio;
     private String email;

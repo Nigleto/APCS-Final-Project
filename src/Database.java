@@ -9,10 +9,13 @@ import com.google.gson.Gson;
 
 public class Database{
     public ArrayList<User> users;
+    public Database(){
+        this.users = new ArrayList<User>();
+    }
 
 
     public ArrayList<User> getUserlist(){
-        return this.users;
+        return this.users;  
     }
 
     public void Sererialize(){
@@ -37,7 +40,7 @@ public class Database{
 
     public void Deserialize(){
         try{
-            FileInputStream file = new FileInputStream("previousUserlist");
+            FileInputStream file = new FileInputStream("previousUserlist.txt");
             ObjectInputStream in = new ObjectInputStream(file);
 
             this.users = (ArrayList) in.readObject();
@@ -55,6 +58,9 @@ public class Database{
         catch (ClassNotFoundException e){
             e.printStackTrace();
             return;
+        }
+        for(int i = 0; i < users.size(); i++){
+            System.out.println(users.get(i));
         }
 
     }
