@@ -10,7 +10,7 @@ public class StockAPI{
     // I MIGHT HAVE TO CHANGE THIS!!!!
 
     public static void main(String[] args) {
-        db = new Database();
+        db.Deserialize();
         StockAPI api = new StockAPI();
         api.loop();
         
@@ -146,6 +146,7 @@ public class StockAPI{
                 pass += scan.nextLine();
                 x = false;
             }
+
             if(haveAccount.equals("n")){
                 System.out.println("Please create an account! ");
     
@@ -156,15 +157,11 @@ public class StockAPI{
                 db.getUserlist().add(user);
                 x = false;
             }
+
             if(!haveAccount.equals("y") && !haveAccount.equals("n")){
                 System.out.println("Please enter either y or n. ");
             }
         }
-        
-        
-
-
-        
         
         user.setEmail(email);
         user.setPassword(pass);
