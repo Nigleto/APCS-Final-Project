@@ -46,7 +46,7 @@ public class StockEvent {
             Object obj = parser.parse(reader);
             JSONArray array = (JSONArray) obj;
             JSONObject dict = (JSONObject) array.get(0);
-            return dict.get(option).toString();
+            return this.key + ": " + dict.get(option).toString();
         } catch (Exception e) {
             e.printStackTrace();
         }

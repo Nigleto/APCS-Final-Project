@@ -1,17 +1,25 @@
 package src;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class User extends StockAPI{
+public class User{
     private ArrayList<Stock> watchlist;
     private ArrayList<Stock> portfolio;
     private String email;
     private String password;
 
     public User(String email, String password){
+        // if(email == null && password == null){
+        //     User user = login();
+        // }
         this.email = email;
         this.password = password;
         watchlist = new ArrayList<Stock>();
         portfolio = new ArrayList<Stock>();
+    }
+
+    public User(){
+        this(null, null);
     }
 
     public void setEmail(String email){
@@ -45,4 +53,7 @@ public class User extends StockAPI{
     public void addPortfolioStock(Stock stock){
         portfolio.add(stock);
     }
+
+    
+    
 }
