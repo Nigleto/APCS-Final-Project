@@ -6,22 +6,25 @@ import java.util.*;
 
 public class StockAPI{
     static User user;
+    public static Database db;
+    // I MIGHT HAVE TO CHANGE THIS!!!!
 
     public static void main(String[] args) {
+        db = new Database();
         StockAPI api = new StockAPI();
         api.loop();
         
     }
 
 
-    // FIX THIS SO THAT IT IS ABLE TO CHECK IF YOUR OPTION (PRICE, VOLAVG, ETC) IS CORRECT AND VALID!!
     public void start(){
         String options = new String("0 - price, 1 - volAvg, 2 - mktCap, 3 - range, 4 - ceo.  ");
         String options1 = new String("OR 5 - add stock to your Watchlist, 6 - add stock to your Portfolio.");
+
         Scanner scan = new Scanner(System.in);
+        boolean x = true;
 
         try {
-
             System.out.print("What stock would you like? ");
             String ticker = scan.nextLine();
 
@@ -31,51 +34,58 @@ public class StockAPI{
             System.out.println("What would you like to do with this stock? ");
             System.out.println("The options are: " + options + options1);
             String keyInput = scan.nextLine();
-            switch(keyInput){
-                case "0":
-                    StockEvent stockWithKey = new StockEvent("price", url);
-                    System.out.println(stockWithKey.getValue());
-                    break;
-                case "1":
-                    StockEvent stockWithKey1 = new StockEvent("volAvg", url);
-                    System.out.println(stockWithKey1.getValue());
-                    break;
-                case "2":
-                    StockEvent stockWithKey2 = new StockEvent("mktCap", url);
-                    System.out.println(stockWithKey2.getValue());
-                    break;
-                case "3":
-                    StockEvent stockWithKey3 = new StockEvent("range", url);
-                    System.out.println(stockWithKey3.getValue());
-                    break;
-                case "4":
-                    StockEvent stockWithKey4 = new StockEvent("ceo", url);
-                    System.out.println(stockWithKey4.getValue());
-                    break;
-                case "5":
-                    Stock stock = new Stock(ticker, url);
-                    user.addWatchlistStock(stock);
-                    System.out.println("Done");
-                    System.out.println(user.getWatchlist().get(0));
-                    break;
-                case "6":
-                    Stock stock1 = new Stock(ticker, url);
-                    user.addWatchlistStock(stock1);
-                    System.out.println("Done");
-                    break;
-                default:
-                    System.out.println("Please enter a valid option. ");
-                    
-                    
 
+            while(x){
+                switch(keyInput){
+                    case "0":
+                        StockEvent stockWithKey = new StockEvent("price", url);
+                        System.out.println(stockWithKey.getValue());
+                        x = false;
+                        break;
+                    case "1":
+                        StockEvent stockWithKey1 = new StockEvent("volAvg", url);
+                        System.out.println(stockWithKey1.getValue());
+                        x = false;
+                        break;
+                    case "2":
+                        StockEvent stockWithKey2 = new StockEvent("mktCap", url);
+                        System.out.println(stockWithKey2.getValue());
+                        x = false;
+                        break;
+                    case "3":
+                        StockEvent stockWithKey3 = new StockEvent("range", url);
+                        System.out.println(stockWithKey3.getValue());
+                        x = false;
+                        break;
+                    case "4":
+                        StockEvent stockWithKey4 = new StockEvent("ceo", url);
+                        System.out.println(stockWithKey4.getValue());
+                        x = false;
+                        break;
+                    case "5":
+                        Stock stock = new Stock(ticker, url);
+                        user.addWatchlistStock(stock);
+                        System.out.println("Done");
+                        System.out.println(user.getWatchlist().get(0));
+                        x = false;
+                        break;
+                    case "6":
+                        Stock stock1 = new Stock(ticker, url);
+                        user.addWatchlistStock(stock1);
+                        System.out.println("Done");
+                        x = false;
+                        break;
+                    default:
+                        System.out.println("Please enter a valid option. ");
+                }
             }
-
-            
-
-            //System.out.print(url);
-        } catch (Exception e) {
-            start();
         }
+
+        catch (Exception e) {
+            start();
+
+        }
+
     }
 
     public void loop(){
@@ -120,13 +130,41 @@ public class StockAPI{
 
     public static User login(){
         Scanner scan = new Scanner(System.in);
-        User user = new User();
+        boolean x = true;
+        String email = "";
+        String pass = "";
 
-        System.out.println("Enter login info: ");
-        System.out.println("email: ");
-        String email = scan.nextLine();
-        System.out.println("pass: ");
-        String pass = scan.nextLine();
+        System.out.println("Do you already have an account with us? y/n");
+        String haveAccount = scan.nextLine();
+
+        while(x){
+            if(haveAccount.equals("y")){
+                System.out.println("Enter login info: ");
+                System.out.println("Email: ");
+                email += scan.nextLine();
+                System.out.println("Pass: ");
+                pass += scan.nextLine();
+                x = false;
+            }
+            if(haveAccount.equals("n")){
+                System.out.println("Please create an account! ");
+    
+                System.out.println("Email: ");
+                email += scan.nextLine();
+                System.out.println("Pass: ");
+                pass += scan.nextLine();
+                db.getUserlist().add(user);
+                x = false;
+            }
+            if(!haveAccount.equals("y") && !haveAccount.equals("n")){
+                System.out.println("Please enter either y or n. ");
+            }
+        }
+        
+        
+
+
+        
         
         user.setEmail(email);
         user.setPassword(pass);

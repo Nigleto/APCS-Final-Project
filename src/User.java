@@ -9,17 +9,10 @@ public class User{
     private String password;
 
     public User(String email, String password){
-        // if(email == null && password == null){
-        //     User user = login();
-        // }
         this.email = email;
         this.password = password;
         watchlist = new ArrayList<Stock>();
         portfolio = new ArrayList<Stock>();
-    }
-
-    public User(){
-        this(null, null);
     }
 
     public void setEmail(String email){
