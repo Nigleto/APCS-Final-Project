@@ -3,7 +3,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class Database {
+public class Database extends StockAPI{
     public ArrayList<User> users;
 
     public void AddUser(User e){

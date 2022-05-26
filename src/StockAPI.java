@@ -121,7 +121,21 @@ public class StockAPI {
 
     public static void main(String[] args) {
         StockAPI api = new StockAPI();
-        User user = new User("np@gmail.com", "1234");
+
+        //
+        try {
+            FileOutputStream file = new FileOutputStream("Database.json");
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            out.WriteObject(object);
+
+            out.close();
+            file.close();
+            
+        }
+
+
+        User user = login();
         api.loop();
         
     }
