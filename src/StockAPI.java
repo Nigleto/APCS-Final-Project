@@ -4,17 +4,23 @@ import java.time.Year;
 import java.util.Scanner;
 import java.util.*;
 
-public class StockAPI {
+public class StockAPI{
+    static User user;
 
+    public static void main(String[] args) {
+        StockAPI api = new StockAPI();
+        api.loop();
+        
+    }
+
+
+    // FIX THIS SO THAT IT IS ABLE TO CHECK IF YOUR OPTION (PRICE, VOLAVG, ETC) IS CORRECT AND VALID!!
     public void start(){
         String options = new String("0 - price, 1 - volAvg, 2 - mktCap, 3 - range, 4 - ceo.  ");
         String options1 = new String("OR 5 - add stock to your Watchlist, 6 - add stock to your Portfolio.");
         Scanner scan = new Scanner(System.in);
-        User user;
 
         try {
-
-            user = login();
 
             System.out.print("What stock would you like? ");
             String ticker = scan.nextLine();
@@ -57,6 +63,9 @@ public class StockAPI {
                     user.addWatchlistStock(stock1);
                     System.out.println("Done");
                     break;
+                default:
+                    System.out.println("Please enter a valid option. ");
+                    
                     
 
             }
@@ -69,18 +78,6 @@ public class StockAPI {
         }
     }
 
-
-    public User login(){
-        Scanner scan = new Scanner(System.in);
-
-        System.out.println("Enter login info: ");
-        System.out.println("email: ");
-        String email = scan.nextLine();
-        System.out.println("pass: ");
-        String pass = scan.nextLine();
-        return new User(email, pass);
-    }
-
     public void loop(){
         boolean start = false;
         Scanner scan = new Scanner(System.in);
@@ -90,53 +87,51 @@ public class StockAPI {
         if(play.equals("y")){
             start = true;
         }
+
+        if(play.equals("n")){
+            System.out.print("Thanks for using Nigel and Nick's Stock API!");
+            return;
+        }
+
+        else if(!play.equals("y") && !play.equals("n")){
+            System.out.println("Please enter either y or n. ");
+            this.loop();
+        } 
         
         while(start == true){
+            user = login();
             this.start();
             System.out.println("Go again? | y/n");
             play = scan.nextLine();
             if(play.equals("y")){
                 continue;
             }
-            else if(play.equals("n")){
+            if(play.equals("n")){
                 start = false;
                 System.out.print("Thanks for using Nigel and Nick's Stock API");
             }
-            else{
-                System.out.print("Please enter either y or n")
+            else if(!play.equals("y") && !play.equals("n")){
+                System.out.println("Please enter either y or n. ");
                 this.loop();
-            }
+            } 
         }
-
-        else if(play.equals("n")){
-            System.out.print("Thanks for using Nigel and Nick's Stock API!")
-            break;
-        }
-        else{
-            System.out.print("Please enter either y or n");
-            this.loop;
-        } 
 
     }
 
-    public static void main(String[] args) {
-        StockAPI api = new StockAPI();
+    public static User login(){
+        Scanner scan = new Scanner(System.in);
+        User user = new User();
 
-        //
-        try {
-            FileOutputStream file = new FileOutputStream("Database.json");
-            ObjectOutputStream out = new ObjectOutputStream(file);
-
-            out.WriteObject(object);
-
-            out.close();
-            file.close();
-            
-        }
-
-
-        User user = login();
-        api.loop();
+        System.out.println("Enter login info: ");
+        System.out.println("email: ");
+        String email = scan.nextLine();
+        System.out.println("pass: ");
+        String pass = scan.nextLine();
         
+        user.setEmail(email);
+        user.setPassword(pass);
+        
+        return user;
     }
+
 }
