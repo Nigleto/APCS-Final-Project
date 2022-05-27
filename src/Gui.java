@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class LoginGui implements ActionListener {
+public class Gui implements ActionListener {
     JFrame jframe; 
     JButton Yes;
     JButton No;
@@ -19,7 +19,7 @@ public class LoginGui implements ActionListener {
     JTextField Password; 
     JButton Submit; 
 
-    LoginGui() {
+    Gui() {
         jframe = new JFrame("Stock Login");
         Yes = new JButton("Yes");
         No = new JButton("No");
@@ -71,7 +71,7 @@ public void actionPerformed(ActionEvent e) {
 }
 
 public static void main(String[] args) {
-    new LoginGui();
+    new Gui();
 }
 
 }

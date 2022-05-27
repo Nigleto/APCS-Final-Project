@@ -134,7 +134,7 @@ public class StockAPI{
 
     public static User login(){
         Scanner scan = new Scanner(System.in);
-        new LoginGui(); 
+        new Gui(); 
         boolean x = true;
         String email = "";
         String pass = "";
