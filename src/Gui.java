@@ -35,6 +35,7 @@ public class Gui implements ActionListener {
     JMenu SysOptions;
     JMenuBar m1;
     JMenuItem LogOut;
+    JLabel stockListLabel;
 
     Gui() {
         jframe = new JFrame("Welcome!");
@@ -171,6 +172,12 @@ public class Gui implements ActionListener {
         }
         if (e.getSource().equals(Options)) {
             if (Options.getSelectedIndex() == 0) {
+                jframe.getContentPane().removeAll();
+                jframe.setTitle("Your Watchlist");
+                stockListLabel= new JLabel("Stock List:");
+                stockListLabel.setBounds(20, 20, 170, 20);
+                jframe.add(stockListLabel);
+                jframe.repaint(); 
                 System.out.println("See");
                 // Needs to be added
             }
