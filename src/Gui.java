@@ -65,7 +65,7 @@ public class Gui implements ActionListener {
             askEmail = new JLabel("Email:");
             askEmail.setBounds(30, 20, 200, 20);
             Email = new JTextField(20);
-            Email.setBounds(70, 20, 200, 20);
+            Email.setBounds(65, 20, 226, 20);
             askPW = new JLabel("Password:");
             askPW.setBounds(30, 60, 200, 20);
             Password = new JTextField(20);
@@ -87,7 +87,7 @@ public class Gui implements ActionListener {
             askEmail = new JLabel("Email:");
             askEmail.setBounds(30, 20, 200, 20);
             Email = new JTextField(20);
-            Email.setBounds(70, 20, 200, 20);
+            Email.setBounds(65, 20, 226, 20);
             askPW = new JLabel("Password:");
             askPW.setBounds(30, 60, 200, 20);
             Password = new JTextField(20);
@@ -152,7 +152,7 @@ public class Gui implements ActionListener {
             askEmail = new JLabel("Email:");
             askEmail.setBounds(30, 20, 200, 20);
             Email = new JTextField(20);
-            Email.setBounds(70, 20, 200, 20);
+            Email.setBounds(65, 20, 226, 20);
             askPW = new JLabel("Password:");
             askPW.setBounds(30, 60, 200, 20);
             Password = new JTextField(20);
