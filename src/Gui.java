@@ -171,7 +171,9 @@ public class Gui implements ActionListener {
             jframe.setVisible(true);
         }
         if (e.getSource().equals(Options)) {
-            if (Options.getSelectedIndex() == 0) {
+            if(Options.getSelectedIndex()==0){
+            }
+            if (Options.getSelectedIndex() == 1) {
                 jframe.getContentPane().removeAll();
                 jframe.setTitle("Your Watchlist");
                 stockListLabel= new JLabel("Stock List:");
@@ -181,7 +183,7 @@ public class Gui implements ActionListener {
                 System.out.println("See");
                 // Needs to be added
             }
-            if (Options.getSelectedIndex() == 1) {
+            if (Options.getSelectedIndex() == 2) {
                 System.out.println("Edit");
                 // Needs to be added
             }
