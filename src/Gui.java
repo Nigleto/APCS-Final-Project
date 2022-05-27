@@ -18,6 +18,8 @@ public class Gui implements ActionListener {
     JLabel askPW;
     JTextField Password; 
     JButton Submit; 
+    static User user;
+    static Database db = new Database();
 
     Gui() {
         jframe = new JFrame("Stock Login");
@@ -65,7 +67,10 @@ public void actionPerformed(ActionEvent e) {
     if(e.getSource()==No){
     }
     if(e.getSource()==Submit){
-        new User(Email.getText(), Password.getText());
+        user = new User(Email.getText(), Password.getText());
+        db.getUserlist().add(user);
+        
+
     }
     
 }
