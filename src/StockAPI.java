@@ -168,8 +168,9 @@ public class StockAPI{
             }
         }
         
-        user.setEmail(email);
-        user.setPassword(pass);
+        user = new User(email, pass);
+
+
         
         return user;
     }

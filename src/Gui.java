@@ -104,10 +104,11 @@ public class Gui implements ActionListener {
         }
         if (e.getSource() == CreateAccount) {
             // need to add check for duplicate accounts
-            // user = new User(Email.getText(), Password.getText());
-            // db.getUserlist().add(user);
+            
             jframe.getContentPane().removeAll();
             jframe.setSize(300, 200);
+            user = new User(Email.getText(), Password.getText());
+            db.getUserlist().add(user);
             AccountCreationMsg = new JLabel("Account Successfully Created!");
             AccountCreationMsg.setBounds(59, 15, 200, 100);
             Back = new JButton("To Login");
@@ -130,10 +131,10 @@ public class Gui implements ActionListener {
             jframe.setJMenuBar(m1);
             LogOut.addActionListener(this);
             jframe.setTitle("Your Account");
-            StockQuestion = new JLabel("What did you want to do?");
+            StockQuestion = new JLabel("What would you like to do?");
             StockQuestion.setBounds(20, 20, 170, 20);
             jframe.add(StockQuestion);
-            String optionArr[] = { "See your watchlist", "Edit your watchlist" };
+            String optionArr[] = { "Check a stock", "See your watchlist ", "See your portfolio ", "Edit your portfolio ", "Edit watchlist" };
             Options = new JComboBox(optionArr);
             Options.setBounds(20, 40, 150, 20);
             Options.setSelectedIndex(-1);
