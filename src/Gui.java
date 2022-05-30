@@ -1,5 +1,6 @@
 package src;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,11 +37,13 @@ public class Gui implements ActionListener {
     JMenuBar m1;
     JMenuItem LogOut;
     JLabel stockListLabel;
-    JComboBox watchList; 
+    JComboBox watchList;
+    JLabel blankError;
+    JLabel wrongError; 
 
     Gui() {
         jframe = new JFrame("Welcome!");
-        jframe.setDefaultCloseOperation(JFrame. EXIT_ON_CLOSE);
+        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Yes = new JButton("Yes");
         No = new JButton("No");
         Yes.setBounds(30, 50, 80, 40);
@@ -105,9 +108,8 @@ public class Gui implements ActionListener {
             jframe.repaint();
         }
         if (e.getSource() == CreateAccount) {
-            // need to add check for duplicate accounts
-            // user = new User(Email.getText(), Password.getText());
-            // db.getUserlist().add(user);
+            user = new User(Email.getText(), Password.getText());
+            db.getUserlist().add(user);
             jframe.getContentPane().removeAll();
             jframe.setSize(300, 200);
             AccountCreationMsg = new JLabel("Account Successfully Created!");
@@ -121,97 +123,86 @@ public class Gui implements ActionListener {
             jframe.repaint();
         }
         if (e.getSource() == Login) {
-            // Check to see if login is valid
-            jframe.getContentPane().removeAll();
-            jframe.setVisible(false);
-            SysOptions = new JMenu("Options");
-            m1 = new JMenuBar();
-            LogOut = new JMenuItem("Log Out");
-            SysOptions.add(LogOut);
-            m1.add(SysOptions);
-            jframe.setJMenuBar(m1);
-            LogOut.addActionListener(this);
-            jframe.setTitle("Your Account");
-            StockQuestion = new JLabel("What did you want to do?");
-            StockQuestion.setBounds(20, 20, 170, 20);
-            jframe.add(StockQuestion);
-            String optionArr[] = { "Check a stock", "See your watchlist ", "See your portfolio ", "Edit your portfolio ", "Edit watchlist" };
-            Options = new JComboBox(optionArr);
-            Options.setBounds(20, 40, 150, 20);
-            Options.setSelectedIndex(-1);
-            Options.addActionListener(this);
-            jframe.add(Options);
-            jframe.repaint();
-            jframe.setVisible(true);
+            if (Email.getText().equals("") || Password.getText().equals("")) {
+                System.out.println("Blank");
+                blankError = new JLabel("Please Fill both fields!");
+                blankError.setBounds(30, -40, 200, 100);
+                blankError.setForeground(Color.RED);
+                jframe.add(blankError);
+                jframe.repaint();
+            
 
-        }
-        if (e.getSource().equals(LogOut)) {
-            jframe.getContentPane().removeAll();
-            jframe.setJMenuBar(null);
-            jframe.setVisible(false);
-            jframe.setTitle("Log In");
-            jframe.setSize(500, 200);
-            askEmail = new JLabel("Email:");
-            askEmail.setBounds(30, 20, 200, 20);
-            Email = new JTextField(20);
-            Email.setBounds(65, 20, 226, 20);
-            askPW = new JLabel("Password:");
-            askPW.setBounds(30, 60, 200, 20);
-            Password = new JTextField(20);
-            Password.setBounds(90, 60, 200, 20);
-            Login = new JButton("Log In");
-            Login.setBounds(375, 130, 90, 20);
-            Login.addActionListener(this);
-            jframe.add(askPW);
-            jframe.add(askEmail);
-            jframe.add(Email);
-            jframe.add(Password);
-            jframe.add(Login);
-            jframe.repaint();
-            jframe.setVisible(true);
-        }
-        if (e.getSource().equals(Options)) {
-            if(Options.getSelectedIndex()==0){
             }
-            if (Options.getSelectedIndex() == 1) {
-                jframe.getContentPane().removeAll();
-                jframe.setTitle("Your Watchlist");
-                stockListLabel= new JLabel("Stock List:");
-                stockListLabel.setBounds(20, 20, 170, 20);
-                jframe.add(stockListLabel);
-                jframe.repaint(); 
-                System.out.println("See");
-                // Needs to be added
-            }
-            if (Options.getSelectedIndex() == 2) {
-                System.out.println("Edit");
-                // Needs to be added
+
+            else{
+                for (int i = 0; i < db.getUserlist().size(); i++) {
+                    if (db.getUserlist().get(i).getEmail().equals(Email.getText())
+                            && db.getUserlist().get(i).getPassword().equals(Password.getText())) {
+                        jframe.getContentPane().removeAll();
+                        System.out.println("Logged in");
+                        jframe.setVisible(false);
+                        SysOptions = new JMenu("Options");
+                        m1 = new JMenuBar();
+                        LogOut = new JMenuItem("Log Out");
+                        SysOptions.add(LogOut);
+                        m1.add(SysOptions);
+                        jframe.setJMenuBar(m1);
+                        LogOut.addActionListener(this);
+                        jframe.setTitle("Your Account");
+                        StockQuestion = new JLabel("What did you want to do?");
+                        StockQuestion.setBounds(20, 20, 170, 20);
+                        jframe.add(StockQuestion);
+                        String optionArr[] = { "Check a stock", "See your watchlist ", "Edit watchlist",
+                                "See your portfolio ", "Edit your portfolio " };
+                        Options = new JComboBox(optionArr);
+                        Options.setBounds(20, 40, 150, 20);
+                        Options.setSelectedIndex(-1);
+                        Options.addActionListener(this);
+                        jframe.add(Options);
+                        jframe.repaint();
+                        jframe.setVisible(true);
+                    }
+                    else{
+                        wrongError= new JLabel("Email or Password Incorrect");
+                        wrongError.setBounds(30, -40, 200, 100);
+                        wrongError.setForeground(Color.RED);
+                        jframe.add(wrongError);
+                        jframe.repaint();
+                    }
+                }
+
             }
         }
+    
 
-        if (e.getSource() == Back) {
-            jframe.getContentPane().removeAll();
-            jframe.setTitle("Log In");
-            jframe.setSize(500, 200);
-            askEmail = new JLabel("Email:");
-            askEmail.setBounds(30, 20, 200, 20);
-            Email = new JTextField(20);
-            Email.setBounds(70, 20, 200, 20);
-            askPW = new JLabel("Password:");
-            askPW.setBounds(30, 60, 200, 20);
-            Password = new JTextField(20);
-            Password.setBounds(90, 60, 200, 20);
-            Login = new JButton("Log In");
-            Login.setBounds(375, 130, 90, 20);
-            Login.addActionListener(this);
-            jframe.add(askPW);
-            jframe.add(askEmail);
-            jframe.add(Email);
-            jframe.add(Password);
-            jframe.add(Login);
-            jframe.repaint();
-        }
+    if(e.getSource().equals(LogOut)){jframe.getContentPane().removeAll();jframe.setJMenuBar(null);jframe.setVisible(false);jframe.setTitle("Log In");jframe.setSize(500,200);askEmail=new JLabel("Email:");askEmail.setBounds(30,20,200,20);Email=new JTextField(20);Email.setBounds(65,20,226,20);askPW=new JLabel("Password:");askPW.setBounds(30,60,200,20);Password=new JTextField(20);Password.setBounds(90,60,200,20);Login=new JButton("Log In");Login.setBounds(375,130,90,20);Login.addActionListener(this);jframe.add(askPW);jframe.add(askEmail);jframe.add(Email);jframe.add(Password);jframe.add(Login);jframe.repaint();jframe.setVisible(true);}if(e.getSource().equals(Options)){if(Options.getSelectedIndex()==0){}if(Options.getSelectedIndex()==1){jframe.getContentPane().removeAll();jframe.setTitle("Your Watchlist");stockListLabel=new JLabel("Stock List:");stockListLabel.setBounds(20,20,170,20);jframe.add(stockListLabel);jframe.repaint();System.out.println("See");
+    // Needs to be added
+    }if(Options.getSelectedIndex()==2){System.out.println("Edit");
+    // Needs to be added
+    }}
 
+    if(e.getSource()==Back){
+        jframe.getContentPane().removeAll();
+        jframe.setTitle("Log In");
+        jframe.setSize(500, 200);
+        askEmail = new JLabel("Email:");
+        askEmail.setBounds(30, 20, 200, 20);
+        Email = new JTextField(20);
+        Email.setBounds(65, 20, 226, 20);
+        askPW = new JLabel("Password:");
+        askPW.setBounds(30, 60, 200, 20);
+        Password = new JTextField(20);
+        Password.setBounds(90, 60, 200, 20);
+        Login = new JButton("Log In");
+        Login.setBounds(375, 130, 90, 20);
+        Login.addActionListener(this);
+        jframe.add(askPW);
+        jframe.add(askEmail);
+        jframe.add(Email);
+        jframe.add(Password);
+        jframe.add(Login);
+        jframe.repaint();
+    }   
     }
 
     public static void main(String[] args) {
