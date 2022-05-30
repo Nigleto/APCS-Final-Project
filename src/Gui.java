@@ -123,6 +123,7 @@ public class Gui implements ActionListener {
             jframe.repaint();
         }
         if (e.getSource() == Login) {
+            int counter=0;
             if (Email.getText().equals("") || Password.getText().equals("")) {
                 System.out.println("Blank");
                 blankError = new JLabel("Please Fill both fields!");
@@ -130,6 +131,7 @@ public class Gui implements ActionListener {
                 blankError.setForeground(Color.RED);
                 jframe.add(blankError);
                 jframe.repaint();
+                
             
 
             }
@@ -162,13 +164,17 @@ public class Gui implements ActionListener {
                         jframe.repaint();
                         jframe.setVisible(true);
                     }
-                    else{
-                        wrongError= new JLabel("Email or Password Incorrect");
-                        wrongError.setBounds(30, -40, 200, 100);
-                        wrongError.setForeground(Color.RED);
-                        jframe.add(wrongError);
-                        jframe.repaint();
+                    if(db.getUserlist().get(i).getEmail()!=Email.getText() && db.getUserlist().get(i).getPassword()!= Password.getText()){
+                        counter++; 
                     }
+                }
+                if(counter==db.getUserlist().size()){
+                     wrongError= new JLabel("Email or Password Incorrect");
+                     wrongError.setBounds(30, -40, 200, 100);
+                     wrongError.setForeground(Color.RED);
+                     jframe.add(wrongError);
+                     jframe.getContentPane().remove(blankError); 
+                     jframe.repaint();
                 }
 
             }
