@@ -1,6 +1,7 @@
 package src;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +40,7 @@ public class Gui implements ActionListener {
     JLabel stockListLabel;
     JComboBox watchList;
     JLabel blankError;
-    JLabel wrongError; 
+    JLabel wrongError;
 
     Gui() {
         jframe = new JFrame("Welcome!");
@@ -108,22 +109,7 @@ public class Gui implements ActionListener {
             jframe.repaint();
         }
         if (e.getSource() == CreateAccount) {
-            user = new User(Email.getText(), Password.getText());
-            db.getUserlist().add(user);
-            jframe.getContentPane().removeAll();
-            jframe.setSize(300, 200);
-            AccountCreationMsg = new JLabel("Account Successfully Created!");
-            AccountCreationMsg.setBounds(59, 15, 200, 100);
-            Back = new JButton("To Login");
-            Back.setFont(new Font("", Font.TRUETYPE_FONT, 10));
-            Back.setBounds(100, 90, 80, 20);
-            Back.addActionListener(this);
-            jframe.add(AccountCreationMsg);
-            jframe.add(Back);
-            jframe.repaint();
-        }
-        if (e.getSource() == Login) {
-            int counter=0;
+            int counter = 0;
             if (Email.getText().equals("") || Password.getText().equals("")) {
                 System.out.println("Blank");
                 blankError = new JLabel("Please Fill both fields!");
@@ -131,12 +117,49 @@ public class Gui implements ActionListener {
                 blankError.setForeground(Color.RED);
                 jframe.add(blankError);
                 jframe.repaint();
-                
-            
+
+            } else {
+                for (int i = 0; i < db.getUserlist().size(); i++) {
+                    if (db.getUserlist().get(i).getEmail().equals(Email.getText())) {
+                        JLabel wrongError = new JLabel("Email already in use!");
+                        wrongError.setBounds(30, -40, 200, 100);
+                        wrongError.setForeground(Color.RED);
+                        jframe.add(wrongError);
+                        jframe.repaint();
+                    } else {
+                        counter++;
+                    }
+                }
+                if (counter == db.getUserlist().size()) {
+                    jframe.getContentPane().removeAll();
+                    jframe.setSize(300, 200);
+                    user = new User(Email.getText(), Password.getText());
+                    db.getUserlist().add(user);
+                    AccountCreationMsg = new JLabel("Account Successfully Created!");
+                    AccountCreationMsg.setBounds(59, 15, 200, 100);
+                    Back = new JButton("To Login");
+                    Back.setFont(new Font("", Font.TRUETYPE_FONT, 10));
+                    Back.setBounds(100, 90, 80, 20);
+                    Back.addActionListener(this);
+                    jframe.add(AccountCreationMsg);
+                    jframe.add(Back);
+                    jframe.repaint();
+                }
+            }
+        }
+        if (e.getSource() == Login) {
+            int counter = 0;
+            if (Email.getText().equals("") || Password.getText().equals("")) {
+                System.out.println("Blank");
+                blankError = new JLabel("Please Fill both fields!");
+                blankError.setBounds(30, -40, 200, 100);
+                blankError.setForeground(Color.RED);
+                jframe.add(blankError);
+                jframe.repaint();
 
             }
 
-            else{
+            else {
                 for (int i = 0; i < db.getUserlist().size(); i++) {
                     if (db.getUserlist().get(i).getEmail().equals(Email.getText())
                             && db.getUserlist().get(i).getPassword().equals(Password.getText())) {
@@ -164,54 +187,98 @@ public class Gui implements ActionListener {
                         jframe.repaint();
                         jframe.setVisible(true);
                     }
-                    if(db.getUserlist().get(i).getEmail()!=Email.getText() && db.getUserlist().get(i).getPassword()!= Password.getText()){
-                        counter++; 
+                    else{
+                        counter++;
                     }
                 }
-                if(counter==db.getUserlist().size()){
-                     wrongError= new JLabel("Email or Password Incorrect");
-                     wrongError.setBounds(30, -40, 200, 100);
-                     wrongError.setForeground(Color.RED);
-                     jframe.add(wrongError);
-                     jframe.getContentPane().remove(blankError); 
-                     jframe.repaint();
+                if (counter == db.getUserlist().size()) {
+                    wrongError = new JLabel("Email or Password Incorrect");
+                    wrongError.setBounds(30, -40, 200, 100);
+                    wrongError.setForeground(Color.RED);
+                    jframe.add(wrongError);
+                    Component[] components = jframe.getComponents();
+                    for(Component c: components){
+                        if(blankError== c){
+                        jframe.getContentPane().remove(blankError);
+                        }
+                    }
+                    jframe.repaint();
                 }
 
             }
         }
-    
 
-    if(e.getSource().equals(LogOut)){jframe.getContentPane().removeAll();jframe.setJMenuBar(null);jframe.setVisible(false);jframe.setTitle("Log In");jframe.setSize(500,200);askEmail=new JLabel("Email:");askEmail.setBounds(30,20,200,20);Email=new JTextField(20);Email.setBounds(65,20,226,20);askPW=new JLabel("Password:");askPW.setBounds(30,60,200,20);Password=new JTextField(20);Password.setBounds(90,60,200,20);Login=new JButton("Log In");Login.setBounds(375,130,90,20);Login.addActionListener(this);jframe.add(askPW);jframe.add(askEmail);jframe.add(Email);jframe.add(Password);jframe.add(Login);jframe.repaint();jframe.setVisible(true);}if(e.getSource().equals(Options)){if(Options.getSelectedIndex()==0){}if(Options.getSelectedIndex()==1){jframe.getContentPane().removeAll();jframe.setTitle("Your Watchlist");stockListLabel=new JLabel("Stock List:");stockListLabel.setBounds(20,20,170,20);jframe.add(stockListLabel);jframe.repaint();System.out.println("See");
-    // Needs to be added
-    }if(Options.getSelectedIndex()==2){System.out.println("Edit");
-    // Needs to be added
-    }}
+        if (e.getSource().equals(LogOut)) {
+            jframe.getContentPane().removeAll();
+            jframe.setJMenuBar(null);
+            jframe.setVisible(false);
+            jframe.setTitle("Log In");
+            jframe.setSize(500, 200);
+            askEmail = new JLabel("Email:");
+            askEmail.setBounds(30, 20, 200, 20);
+            Email = new JTextField(20);
+            Email.setBounds(65, 20, 226, 20);
+            askPW = new JLabel("Password:");
+            askPW.setBounds(30, 60, 200, 20);
+            Password = new JTextField(20);
+            Password.setBounds(90, 60, 200, 20);
+            Login = new JButton("Log In");
+            Login.setBounds(375, 130, 90, 20);
+            Login.addActionListener(this);
+            jframe.add(askPW);
+            jframe.add(askEmail);
+            jframe.add(Email);
+            jframe.add(Password);
+            jframe.add(Login);
+            jframe.repaint();
+            jframe.setVisible(true);
+        }
+        if (e.getSource().equals(Options)) {
+            if (Options.getSelectedIndex() == 0) {
+            }
+            if (Options.getSelectedIndex() == 1) {
+                jframe.getContentPane().removeAll();
+                jframe.setTitle("Your Watchlist");
+                stockListLabel = new JLabel("Stock List:");
+                stockListLabel.setBounds(20, 20, 170, 20);
+                jframe.add(stockListLabel);
+                jframe.repaint();
+                System.out.println("See");
+                // Needs to be added
+            }
+            if (Options.getSelectedIndex() == 2) {
+                System.out.println("Edit");
+                // Needs to be added
+            }
+        }
 
-    if(e.getSource()==Back){
-        jframe.getContentPane().removeAll();
-        jframe.setTitle("Log In");
-        jframe.setSize(500, 200);
-        askEmail = new JLabel("Email:");
-        askEmail.setBounds(30, 20, 200, 20);
-        Email = new JTextField(20);
-        Email.setBounds(65, 20, 226, 20);
-        askPW = new JLabel("Password:");
-        askPW.setBounds(30, 60, 200, 20);
-        Password = new JTextField(20);
-        Password.setBounds(90, 60, 200, 20);
-        Login = new JButton("Log In");
-        Login.setBounds(375, 130, 90, 20);
-        Login.addActionListener(this);
-        jframe.add(askPW);
-        jframe.add(askEmail);
-        jframe.add(Email);
-        jframe.add(Password);
-        jframe.add(Login);
-        jframe.repaint();
-    }   
+        if (e.getSource() == Back) {
+            jframe.getContentPane().removeAll();
+            jframe.setTitle("Log In");
+            jframe.setSize(500, 200);
+            askEmail = new JLabel("Email:");
+            askEmail.setBounds(30, 20, 200, 20);
+            Email = new JTextField(20);
+            Email.setBounds(65, 20, 226, 20);
+            askPW = new JLabel("Password:");
+            askPW.setBounds(30, 60, 200, 20);
+            Password = new JTextField(20);
+            Password.setBounds(90, 60, 200, 20);
+            Login = new JButton("Log In");
+            Login.setBounds(375, 130, 90, 20);
+            Login.addActionListener(this);
+            jframe.add(askPW);
+            jframe.add(askEmail);
+            jframe.add(Email);
+            jframe.add(Password);
+            jframe.add(Login);
+            jframe.repaint();
+        }
     }
 
     public static void main(String[] args) {
+        User f = new User("f","f");
+        db.getUserlist().add(f);
         new Gui();
     }
 
