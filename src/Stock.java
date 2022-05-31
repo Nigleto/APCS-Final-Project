@@ -1,7 +1,8 @@
 package src;
+import java.io.Serializable;
 import java.net.URL;
 
-public class Stock{
+public class Stock implements Serializable{
     private String ticker;
     private URL url;
 
@@ -17,6 +18,11 @@ public class Stock{
 
     public URL getUrl(){
         return this.url;
+    }
+
+    @Override
+    public String getTicker(){
+        return this.ticker;
     }
 
 
