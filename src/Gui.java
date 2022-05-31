@@ -53,7 +53,8 @@ public class Gui implements ActionListener {
     JLabel stockRangeLabel;
     JLabel stockCEOLabel; 
     JButton addToWatchlist; 
-    JButton backToChoices; 
+    JButton backToChoices;
+    String ticker;
     Gui() {
         jframe = new JFrame("Welcome!");
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -293,6 +294,7 @@ public class Gui implements ActionListener {
         }
         if (e.getSource() == checkStockButton) {
             try {
+                ticker= stockTicker.getText();
                 url = new URL("https://financialmodelingprep.com/api/v3/profile/" + stockTicker.getText()
                         + "?apikey=9e32e1c117e9206264ef7c63453dca84");
                 System.out.println(stockTicker.getText());
@@ -392,7 +394,8 @@ public class Gui implements ActionListener {
             jframe.setVisible(true);
         }
         if(e.getSource()== addToWatchlist){
-
+            Stock s= new Stock(ticker, url); 
+            user.addWatchlistStock(s);
         }
         db.Sererialize();
     }
