@@ -121,6 +121,13 @@ public class Gui implements ActionListener {
             } else {
                 for (int i = 0; i < db.getUserlist().size(); i++) {
                     if (db.getUserlist().get(i).getEmail().equals(Email.getText())) {
+                        Component[] components = jframe.getContentPane().getComponents();
+                        for(Component c: components){
+                            if(blankError== c){
+                            System.out.println("error removed");
+                            blankError.setVisible(false); 
+                            }
+                        }
                         JLabel wrongError = new JLabel("Email already in use!");
                         wrongError.setBounds(30, -40, 200, 100);
                         wrongError.setForeground(Color.RED);
@@ -151,6 +158,13 @@ public class Gui implements ActionListener {
             int counter = 0;
             if (Email.getText().equals("") || Password.getText().equals("")) {
                 System.out.println("Blank");
+                Component[] components = jframe.getContentPane().getComponents();
+                for(Component c: components){
+                    if(wrongError== c){
+                    System.out.println("error removed");
+                    wrongError.setVisible(false); 
+                    }
+                }
                 blankError = new JLabel("Please Fill both fields!");
                 blankError.setBounds(30, -40, 200, 100);
                 blankError.setForeground(Color.RED);
@@ -196,10 +210,11 @@ public class Gui implements ActionListener {
                     wrongError.setBounds(30, -40, 200, 100);
                     wrongError.setForeground(Color.RED);
                     jframe.add(wrongError);
-                    Component[] components = jframe.getComponents();
+                    Component[] components = jframe.getContentPane().getComponents();
                     for(Component c: components){
                         if(blankError== c){
-                        jframe.getContentPane().remove(blankError);
+                        System.out.println("error removed");
+                        blankError.setVisible(false); 
                         }
                     }
                     jframe.repaint();

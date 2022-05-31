@@ -11,6 +11,7 @@ public class StockAPI{
 
     public static void main(String[] args) {
         //db.Deserialize();
+        new Gui(); 
         db.Deserialize();
 
         StockAPI api = new StockAPI();
