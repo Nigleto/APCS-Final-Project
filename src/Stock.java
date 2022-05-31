@@ -20,7 +20,6 @@ public class Stock implements Serializable{
         return this.url;
     }
 
-    @Override
     public String getTicker(){
         return this.ticker;
     }
