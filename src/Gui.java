@@ -360,9 +360,11 @@ public class Gui implements ActionListener {
     }
 
     public static void main(String[] args) {
+        db.Deserialize();
         User f = new User("f", "f");
         db.getUserlist().add(f);
         new Gui();
+        db.Sererialize();
     }
 
 }
