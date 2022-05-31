@@ -47,6 +47,11 @@ public class Gui implements ActionListener {
     JLabel askTicker;
     JButton checkStockButton;
     URL url;
+    JLabel stockPriceLabel;
+    JLabel stockVolAvgLabel;
+    JLabel stockMarketCapLabel;
+    JLabel stockRangeLabel;
+    JLabel stockCEOLabel; 
 
     Gui() {
         jframe = new JFrame("Welcome!");
@@ -290,20 +295,44 @@ public class Gui implements ActionListener {
                         + "?apikey=9e32e1c117e9206264ef7c63453dca84");
                 System.out.println(stockTicker.getText());
                 try {
-                    StockEvent stockWithKey = new StockEvent("price", url);
+                    StockEvent stockPrice = new StockEvent("price", url);
+                    StockEvent stockVolAvg = new StockEvent("volAvg", url);
+                    StockEvent stockmktCap = new StockEvent("mktCap", url);
+                    StockEvent stockRange = new StockEvent("range", url);
+                    StockEvent stockCeo = new StockEvent("ceo", url);
+                    if(stockPrice.getValue()==null){
+                        throw new Exception(); 
+                    }
+                    jframe.getContentPane().removeAll();
+                    stockPriceLabel= new JLabel(stockPrice.getValue());
+                    stockVolAvgLabel= new JLabel(stockVolAvg.getValue());
+                    stockMarketCapLabel= new JLabel(stockmktCap.getValue());
+                    stockRangeLabel= new JLabel(stockRange.getValue());
+                    stockCEOLabel= new JLabel(stockCeo.getValue());
+                    stockPriceLabel.setBounds(20, 20, 170, 20);
+                    stockVolAvgLabel.setBounds(20, 35, 170, 20);
+                    stockMarketCapLabel.setBounds(20, 50, 170, 20);
+                    stockRangeLabel.setBounds(20, 65, 170, 20);
+                    stockCEOLabel.setBounds(20, 80, 170, 20);
+                    jframe.add(stockPriceLabel);
+                    jframe.add(stockVolAvgLabel);
+                    jframe.add(stockMarketCapLabel);
+                    jframe.add(stockRangeLabel);
+                    jframe.add(stockCEOLabel);
+                    jframe.repaint();
                 } catch (Exception e1) {
-                    System.out.println("Hi");
+                    wrongError = new JLabel("Invalid Ticker");
+                    wrongError.setBounds(24, -40, 200, 100);
+                    wrongError.setForeground(Color.RED);
+                    jframe.add(wrongError);
+                    jframe.repaint();
+                    System.out.println("Invalid");
                 }
-            
+                
             }
 
             catch (MalformedURLException e1) {
-                wrongError = new JLabel("Invalid Ticker");
-                wrongError.setBounds(30, -40, 200, 100);
-                wrongError.setForeground(Color.RED);
-                jframe.add(wrongError);
-                jframe.repaint();
-                System.out.println("Invalid");
+              
             } 
         }
         if (e.getSource() == Back) {
