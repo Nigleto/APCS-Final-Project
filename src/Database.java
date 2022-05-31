@@ -59,6 +59,7 @@ public class Database{
             e.printStackTrace();
             return;
         }
+        
         for(int i = 0; i < users.size(); i++){
             System.out.println(users.get(i));
         }
