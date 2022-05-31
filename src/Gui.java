@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -41,6 +43,10 @@ public class Gui implements ActionListener {
     JComboBox watchList;
     JLabel blankError;
     JLabel wrongError;
+    JTextField stockTicker;
+    JLabel askTicker;
+    JButton checkStockButton;
+    URL url;
 
     Gui() {
         jframe = new JFrame("Welcome!");
@@ -122,10 +128,10 @@ public class Gui implements ActionListener {
                 for (int i = 0; i < db.getUserlist().size(); i++) {
                     if (db.getUserlist().get(i).getEmail().equals(Email.getText())) {
                         Component[] components = jframe.getContentPane().getComponents();
-                        for(Component c: components){
-                            if(blankError== c){
-                            System.out.println("error removed");
-                            blankError.setVisible(false); 
+                        for (Component c : components) {
+                            if (blankError == c) {
+                                System.out.println("error removed");
+                                blankError.setVisible(false);
                             }
                         }
                         JLabel wrongError = new JLabel("Email already in use!");
@@ -159,10 +165,10 @@ public class Gui implements ActionListener {
             if (Email.getText().equals("") || Password.getText().equals("")) {
                 System.out.println("Blank");
                 Component[] components = jframe.getContentPane().getComponents();
-                for(Component c: components){
-                    if(wrongError== c){
-                    System.out.println("error removed");
-                    wrongError.setVisible(false); 
+                for (Component c : components) {
+                    if (wrongError == c) {
+                        System.out.println("error removed");
+                        wrongError.setVisible(false);
                     }
                 }
                 blankError = new JLabel("Please Fill both fields!");
@@ -191,8 +197,7 @@ public class Gui implements ActionListener {
                         StockQuestion = new JLabel("What did you want to do?");
                         StockQuestion.setBounds(20, 20, 170, 20);
                         jframe.add(StockQuestion);
-                        String optionArr[] = { "Check a stock", "See your watchlist ", "Edit watchlist",
-                                "See your portfolio ", "Edit your portfolio " };
+                        String optionArr[] = { "Check a stock", "See your watchlist ", "Edit watchlist" };
                         Options = new JComboBox(optionArr);
                         Options.setBounds(20, 40, 150, 20);
                         Options.setSelectedIndex(-1);
@@ -200,8 +205,7 @@ public class Gui implements ActionListener {
                         jframe.add(Options);
                         jframe.repaint();
                         jframe.setVisible(true);
-                    }
-                    else{
+                    } else {
                         counter++;
                     }
                 }
@@ -211,10 +215,10 @@ public class Gui implements ActionListener {
                     wrongError.setForeground(Color.RED);
                     jframe.add(wrongError);
                     Component[] components = jframe.getContentPane().getComponents();
-                    for(Component c: components){
-                        if(blankError== c){
-                        System.out.println("error removed");
-                        blankError.setVisible(false); 
+                    for (Component c : components) {
+                        if (blankError == c) {
+                            System.out.println("error removed");
+                            blankError.setVisible(false);
                         }
                     }
                     jframe.repaint();
@@ -250,6 +254,20 @@ public class Gui implements ActionListener {
         }
         if (e.getSource().equals(Options)) {
             if (Options.getSelectedIndex() == 0) {
+                jframe.getContentPane().removeAll();
+                jframe.setTitle("Stock Lookup");
+                stockTicker = new JTextField();
+                stockTicker.setBounds(25, 50, 226, 20);
+                jframe.add(stockTicker);
+                askTicker = new JLabel("Enter the Ticker of the Stock you want to see (Apple Inc. = AAPL)");
+                askTicker.setBounds(25, 20, 400, 20);
+                jframe.add(askTicker);
+                checkStockButton = new JButton("Check Stock");
+                checkStockButton.setBounds(352, 105, 110, 20);
+                checkStockButton.addActionListener(this);
+                jframe.add(checkStockButton);
+                jframe.repaint();
+
             }
             if (Options.getSelectedIndex() == 1) {
                 jframe.getContentPane().removeAll();
@@ -266,7 +284,28 @@ public class Gui implements ActionListener {
                 // Needs to be added
             }
         }
+        if (e.getSource() == checkStockButton) {
+            try {
+                url = new URL("https://financialmodelingprep.com/api/v3/profile/" + stockTicker.getText()
+                        + "?apikey=9e32e1c117e9206264ef7c63453dca84");
+                System.out.println(stockTicker.getText());
+                try {
+                    StockEvent stockWithKey = new StockEvent("price", url);
+                } catch (Exception e1) {
+                    System.out.println("Hi");
+                }
+            
+            }
 
+            catch (MalformedURLException e1) {
+                wrongError = new JLabel("Invalid Ticker");
+                wrongError.setBounds(30, -40, 200, 100);
+                wrongError.setForeground(Color.RED);
+                jframe.add(wrongError);
+                jframe.repaint();
+                System.out.println("Invalid");
+            } 
+        }
         if (e.getSource() == Back) {
             jframe.getContentPane().removeAll();
             jframe.setTitle("Log In");
@@ -292,7 +331,7 @@ public class Gui implements ActionListener {
     }
 
     public static void main(String[] args) {
-        User f = new User("f","f");
+        User f = new User("f", "f");
         db.getUserlist().add(f);
         new Gui();
     }

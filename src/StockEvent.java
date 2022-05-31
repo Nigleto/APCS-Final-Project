@@ -48,10 +48,10 @@ public class StockEvent {
             JSONObject dict = (JSONObject) array.get(0);
             return this.key + ": " + dict.get(option).toString();
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
+    
 
 
 }
