@@ -295,9 +295,10 @@ public class Gui implements ActionListener {
         if (e.getSource() == checkStockButton) {
             try {
                 ticker= stockTicker.getText();
+                System.out.println("ticker");
                 url = new URL("https://financialmodelingprep.com/api/v3/profile/" + stockTicker.getText()
                         + "?apikey=9e32e1c117e9206264ef7c63453dca84");
-                System.out.println(stockTicker.getText());
+                System.out.println(ticker);
                 try {
                     StockEvent stockPrice = new StockEvent("price", url);
                     StockEvent stockVolAvg = new StockEvent("volAvg", url);
@@ -305,8 +306,14 @@ public class Gui implements ActionListener {
                     StockEvent stockRange = new StockEvent("range", url);
                     StockEvent stockCeo = new StockEvent("ceo", url);
                     if(stockPrice.getValue()==null){
-                        throw new Exception(); 
+                        wrongError = new JLabel("Invalid Ticker");
+                        wrongError.setBounds(24, -40, 200, 100);
+                        wrongError.setForeground(Color.RED);
+                        jframe.add(wrongError);
+                        jframe.repaint();
+                     System.out.println("Invalid");
                     }
+                    if(stockPrice.getValue()!=null){
                     jframe.getContentPane().removeAll();
                     stockPriceLabel= new JLabel(stockPrice.getValue());
                     stockVolAvgLabel= new JLabel(stockVolAvg.getValue());
@@ -332,6 +339,7 @@ public class Gui implements ActionListener {
                     jframe.add(stockRangeLabel);
                     jframe.add(stockCEOLabel);
                     jframe.repaint();
+                    }
                 } catch (Exception e1) {
                     wrongError = new JLabel("Invalid Ticker");
                     wrongError.setBounds(24, -40, 200, 100);
@@ -384,7 +392,7 @@ public class Gui implements ActionListener {
             StockQuestion = new JLabel("What did you want to do?");
             StockQuestion.setBounds(20, 20, 170, 20);
             jframe.add(StockQuestion);
-            String optionArr[] = { "Check a stock", "See your watchlist ", "Edit watchlist" };
+            String optionArr[] = { "Check a stock", "See your watchlist "};
             Options = new JComboBox(optionArr);
             Options.setBounds(20, 40, 150, 20);
             Options.setSelectedIndex(-1);
