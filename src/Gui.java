@@ -52,7 +52,8 @@ public class Gui implements ActionListener {
     JLabel stockMarketCapLabel;
     JLabel stockRangeLabel;
     JLabel stockCEOLabel; 
-
+    JButton addToWatchlist; 
+    JButton backToChoices; 
     Gui() {
         jframe = new JFrame("Welcome!");
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -202,7 +203,7 @@ public class Gui implements ActionListener {
                         StockQuestion = new JLabel("What did you want to do?");
                         StockQuestion.setBounds(20, 20, 170, 20);
                         jframe.add(StockQuestion);
-                        String optionArr[] = { "Check a stock", "See your watchlist ", "Edit watchlist" };
+                        String optionArr[] = { "Check a stock", "See your watchlist " };
                         Options = new JComboBox(optionArr);
                         Options.setBounds(20, 40, 150, 20);
                         Options.setSelectedIndex(-1);
@@ -210,6 +211,7 @@ public class Gui implements ActionListener {
                         jframe.add(Options);
                         jframe.repaint();
                         jframe.setVisible(true);
+                        user= db.getUserlist().get(i); 
                     } else {
                         counter++;
                     }
@@ -309,11 +311,19 @@ public class Gui implements ActionListener {
                     stockMarketCapLabel= new JLabel(stockmktCap.getValue());
                     stockRangeLabel= new JLabel(stockRange.getValue());
                     stockCEOLabel= new JLabel(stockCeo.getValue());
+                    addToWatchlist= new JButton("Add stock to watchlist");
+                    backToChoices= new JButton("Back");
                     stockPriceLabel.setBounds(20, 20, 170, 20);
                     stockVolAvgLabel.setBounds(20, 35, 170, 20);
                     stockMarketCapLabel.setBounds(20, 50, 170, 20);
                     stockRangeLabel.setBounds(20, 65, 170, 20);
                     stockCEOLabel.setBounds(20, 80, 170, 20);
+                    addToWatchlist.setBounds(310, 90, 170, 20);
+                    backToChoices.setBounds(310, 110, 170, 20);
+                    addToWatchlist.addActionListener(this);
+                    backToChoices.addActionListener(this);
+                    jframe.add(backToChoices);
+                    jframe.add(addToWatchlist); 
                     jframe.add(stockPriceLabel);
                     jframe.add(stockVolAvgLabel);
                     jframe.add(stockMarketCapLabel);
@@ -357,6 +367,34 @@ public class Gui implements ActionListener {
             jframe.add(Login);
             jframe.repaint();
         }
+        if(e.getSource()== backToChoices){
+            jframe.getContentPane().removeAll();
+            System.out.println("Logged in");
+            jframe.setVisible(false);
+            SysOptions = new JMenu("Options");
+            m1 = new JMenuBar();
+            LogOut = new JMenuItem("Log Out");
+            SysOptions.add(LogOut);
+            m1.add(SysOptions);
+            jframe.setJMenuBar(m1);
+            LogOut.addActionListener(this);
+            jframe.setTitle("Your Account");
+            StockQuestion = new JLabel("What did you want to do?");
+            StockQuestion.setBounds(20, 20, 170, 20);
+            jframe.add(StockQuestion);
+            String optionArr[] = { "Check a stock", "See your watchlist ", "Edit watchlist" };
+            Options = new JComboBox(optionArr);
+            Options.setBounds(20, 40, 150, 20);
+            Options.setSelectedIndex(-1);
+            Options.addActionListener(this);
+            jframe.add(Options);
+            jframe.repaint();
+            jframe.setVisible(true);
+        }
+        if(e.getSource()== addToWatchlist){
+
+        }
+        db.Sererialize();
     }
 
     public static void main(String[] args) {
@@ -364,7 +402,6 @@ public class Gui implements ActionListener {
         User f = new User("f", "f");
         db.getUserlist().add(f);
         new Gui();
-        db.Sererialize();
     }
 
 }
