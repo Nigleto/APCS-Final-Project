@@ -68,26 +68,6 @@ public class Gui implements ActionListener {
 
     }
 
-    // public String getUserStock(){
-    //     try {
-    //         url = new URL("https://financialmodelingprep.com/api/v3/profile/" + stockTicker.getText()
-    //                 + "?apikey=9e32e1c117e9206264ef7c63453dca84");
-    //         System.out.println(stockTicker.getText());
-    //         StockEvent stockWithKey = new StockEvent("price", url);
-            
-        
-    //     }
-
-    //     catch (Exception e1) {
-    //         wrongError = new JLabel("Invalid Ticker");
-    //         wrongError.setBounds(30, -40, 200, 100);
-    //         wrongError.setForeground(Color.RED);
-    //         jframe.add(wrongError);
-    //         jframe.repaint();
-    //         System.out.println("Invalid");
-    //     } 
-    // }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Yes) {
@@ -304,19 +284,20 @@ public class Gui implements ActionListener {
                 // Needs to be added
             }
         }
-
-        
-
         if (e.getSource() == checkStockButton) {
-            boolean x = true;
             try {
                 url = new URL("https://financialmodelingprep.com/api/v3/profile/" + stockTicker.getText()
                         + "?apikey=9e32e1c117e9206264ef7c63453dca84");
-                StockEvent stockWithKey = new StockEvent("price", url);
+                System.out.println(stockTicker.getText());
+                try {
+                    StockEvent stockWithKey = new StockEvent("price", url);
+                } catch (Exception e1) {
+                    System.out.println("Hi");
+                }
             
             }
 
-            catch (Exception e1) {
+            catch (MalformedURLException e1) {
                 wrongError = new JLabel("Invalid Ticker");
                 wrongError.setBounds(30, -40, 200, 100);
                 wrongError.setForeground(Color.RED);

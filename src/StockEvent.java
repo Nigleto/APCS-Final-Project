@@ -47,17 +47,7 @@ public class StockEvent {
             JSONArray array = (JSONArray) obj;
             JSONObject dict = (JSONObject) array.get(0);
             return this.key + ": " + dict.get(option).toString();
-
-            // if(array.size()>0){
-            //     System.out.println("Invalid ticker");
-            
-            // }
-            // else{
-            //     JSONObject dict = (JSONObject) array.get(0);
-            //     return this.key + ": " + dict.get(option).toString();
-            // }
         } catch (Exception e) {
-
         }
         return null;
     }
