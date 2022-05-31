@@ -394,6 +394,23 @@ public class Gui implements ActionListener {
             jframe.setVisible(true);
         }
         if(e.getSource()== addToWatchlist){
+            boolean hasDuplicate= false;
+            if(user.getWatchlist().size()>0){
+                for(int i=0; i<user.getWatchlist().size(); i++){
+                    if(ticker.equals(user.getWatchlist().get(i).toString())){
+                        hasDuplicate= true; 
+                    }
+                }
+                if(hasDuplicate==false){
+                    Stock s= new Stock(ticker, url);
+                    user.addWatchlistStock(s);
+                }
+            }
+            else{
+                Stock s= new Stock(ticker, url);
+                user.addWatchlistStock(s);
+            }
+                
             Stock s= new Stock(ticker, url); 
             user.addWatchlistStock(s);
         }
