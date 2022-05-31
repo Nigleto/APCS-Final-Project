@@ -21,7 +21,7 @@ public class Stock implements Serializable{
     }
 
     @Override
-    public String getTicker(){
+    public String toString(){
         return this.ticker;
     }
 
