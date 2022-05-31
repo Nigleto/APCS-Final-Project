@@ -20,7 +20,7 @@ public class Database{
 
     public void Sererialize(){
         try{
-            FileOutputStream file = new FileOutputStream("previousUserlist");
+            FileOutputStream file = new FileOutputStream("previousUserlist.txt");
             ObjectOutputStream out = new ObjectOutputStream(file);
 
             out.writeObject(this.users);
