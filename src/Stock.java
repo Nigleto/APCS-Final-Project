@@ -1,7 +1,8 @@
 package src;
+import java.io.Serializable;
 import java.net.URL;
 
-public class Stock{
+public class Stock implements Serializable{
     private String ticker;
     private URL url;
 
