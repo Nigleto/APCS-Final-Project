@@ -19,5 +19,10 @@ public class Stock{
         return this.url;
     }
 
+    @Override
+    public String getTicker(){
+        return this.ticker;
+    }
+
 
 }
