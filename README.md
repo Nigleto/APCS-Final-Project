@@ -15,5 +15,5 @@ Enjoy!
 
 ## Steps
 1. Download this project as a ZIP File.
-2. Open and set json-simple-1.1.jar (lib\json-simple\json-simple-1.1.jar) as a Reference Library.
+2. Open in VSCode and set json-simple-1.1.jar (lib\json-simple\json-simple-1.1.jar) as a Reference Library.
 3. Run, create an account, and enjoy!
