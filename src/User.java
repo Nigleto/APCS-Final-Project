@@ -41,11 +41,11 @@ public class User implements Serializable{
     }
 
     public void addWatchlistStock(Stock stock){
-        watchlist.add(stock);
+        this.watchlist.add(stock);
     }
 
     public void addPortfolioStock(Stock stock){
-        portfolio.add(stock);
+        this.portfolio.add(stock);
     }
 
     
