@@ -283,6 +283,18 @@ public class Gui implements ActionListener {
                 stockListLabel = new JLabel("Stock List:");
                 stockListLabel.setBounds(20, 20, 170, 20);
                 jframe.add(stockListLabel);
+                String[] watchListArr= new String[user.getWatchlist().size()];
+                if(user.getWatchlist().size()!=0){
+                    for(int i=0;i<watchListArr.length;i++){
+                        watchListArr[i]=user.getWatchlist().get(i).getTicker(); 
+                    }
+                }
+                
+                watchList= new JComboBox(watchListArr); 
+                watchList.setBounds(20, 40, 150, 20);
+                watchList.setSelectedIndex(-1);
+                watchList.addActionListener(this);
+                jframe.add(watchList); 
                 jframe.repaint();
                 System.out.println("See");
                 // Needs to be added
@@ -414,13 +426,10 @@ public class Gui implements ActionListener {
                     user.addWatchlistStock(s);
                 }
             }
-            else{
+            if(user.getWatchlist().size()==0){
                 Stock s= new Stock(ticker, url);
                 user.addWatchlistStock(s);
             }
-                
-            Stock s= new Stock(ticker, url); 
-            user.addWatchlistStock(s);
         }
         db.Sererialize();
     }
