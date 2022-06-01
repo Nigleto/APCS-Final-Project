@@ -18,7 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class Gui implements ActionListener {
+public class Main implements ActionListener {
     JFrame jframe;
     JButton Yes;
     JButton No;
@@ -56,7 +56,7 @@ public class Gui implements ActionListener {
     JButton backToChoices;
     String ticker;
     JButton removeFromWatchlist; 
-    Gui() {
+    Main() {
         jframe = new JFrame("Welcome!");
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Yes = new JButton("Yes");
@@ -422,7 +422,7 @@ public class Gui implements ActionListener {
             boolean hasDuplicate= false;
             if(user.getWatchlist().size()>0){
                 for(int i=0; i<user.getWatchlist().size(); i++){
-                    if(ticker.equals(user.getWatchlist().get(i).toString())){
+                    if(ticker.equals(user.getWatchlist().get(i).getTicker())){
                         hasDuplicate= true; 
                     }
                 }
@@ -509,7 +509,7 @@ public class Gui implements ActionListener {
         db.Deserialize();
         User f = new User("f", "f");
         db.getUserlist().add(f);
-        new Gui();
+        new Main();
     }
 
 }
