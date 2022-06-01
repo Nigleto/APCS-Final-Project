@@ -55,6 +55,8 @@ public class Gui implements ActionListener {
     JButton addToWatchlist; 
     JButton backToChoices;
     String ticker;
+    JLabel alreadyInWatchlist;
+
     Gui() {
         jframe = new JFrame("Welcome!");
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -415,14 +417,22 @@ public class Gui implements ActionListener {
                     Stock s= new Stock(ticker, url);
                     user.addWatchlistStock(s);
                 }
+                else{
+                    alreadyInWatchlist = new JLabel("This stock is already in your Watchlist :-)");
+                    alreadyInWatchlist.setBounds(24, -40, 200, 100);
+                    alreadyInWatchlist.setForeground(Color.RED);
+                    jframe.add(alreadyInWatchlist);
+                    jframe.repaint();
+                    System.out.println("Stock already in Watchlist");
+                }
             }
             else{
-                Stock s= new Stock(ticker, url);
-                user.addWatchlistStock(s);
+                Stock s = new Stock(ticker, url);
+                user.addPortfolioStock(s);
             }
-                
-            Stock s= new Stock(ticker, url); 
-            user.addWatchlistStock(s);
+
+            System.out.println("Added stock to Watchlist.");
+            
         }
         db.Sererialize();
     }
