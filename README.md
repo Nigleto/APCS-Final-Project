@@ -8,10 +8,12 @@ There is both a Terminal Version and a GUI Version. We reccomend the GUI Version
 
 You'll need VSCode in order to run and enjoy this program.
 
-DISCLAIMER: You will need to add json-simple-1.1.jar as a Reference Library in order for this program to work. (lib\json-simple\json-simple-1.1.jar)
-
 We plan to work on this even after the due date to make this even better than it is now.
 We also plan to make this Open Source, that way if there are people interested in this project, they will be able to freely suggest things!
 
 Enjoy!
 
+## Steps
+1. Download this project as a ZIP File.
+2. Open and set json-simple-1.1.jar (lib\json-simple\json-simple-1.1.jar) as a Reference Library.
+3. Run, create an account, and enjoy!
