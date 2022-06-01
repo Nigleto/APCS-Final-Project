@@ -2,7 +2,7 @@
 This is Nigel and Nick's Stock API that we made for our APCS Final Project!
 
 ## About
-There is both a Terminal Version and a GUI Version. [We reccomend the GUI Version :-)]
+There is both a Terminal Version and a GUI Version. We reccomend the GUI Version :-)
 - Terminal Version: Able to choose which stock to look at and look at each value separately (i.e. Price, Market Cap, Range, etc.)
 - GUI Version: Able to choose stock and look at all different kinds of info at once (same values as above), Able to create account and loggin, Able to add to Watchlist.
 
