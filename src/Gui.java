@@ -55,6 +55,7 @@ public class Gui implements ActionListener {
     JButton addToWatchlist; 
     JButton backToChoices;
     String ticker;
+    JButton removeFromWatchlist; 
     Gui() {
         jframe = new JFrame("Welcome!");
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -294,6 +295,10 @@ public class Gui implements ActionListener {
                 watchList.setBounds(20, 40, 150, 20);
                 watchList.setSelectedIndex(-1);
                 watchList.addActionListener(this);
+                backToChoices= new JButton("Back");
+                backToChoices.setBounds(310, 110, 170, 20);
+                backToChoices.addActionListener(this);
+                jframe.add(backToChoices);
                 jframe.add(watchList); 
                 jframe.repaint();
                 System.out.println("See");
@@ -430,6 +435,72 @@ public class Gui implements ActionListener {
                 Stock s= new Stock(ticker, url);
                 user.addWatchlistStock(s);
             }
+        }
+        if(e.getSource()==watchList){
+            ticker = user.getWatchlist().get(watchList.getSelectedIndex()).getTicker();
+            try {
+                System.out.println("ticker");
+                url = new URL("https://financialmodelingprep.com/api/v3/profile/" + ticker
+                        + "?apikey=9e32e1c117e9206264ef7c63453dca84");
+                System.out.println(ticker);
+                try {
+                    StockEvent stockPrice = new StockEvent("price", url);
+                    StockEvent stockVolAvg = new StockEvent("volAvg", url);
+                    StockEvent stockmktCap = new StockEvent("mktCap", url);
+                    StockEvent stockRange = new StockEvent("range", url);
+                    StockEvent stockCeo = new StockEvent("ceo", url);
+                    if(stockPrice.getValue()==null){
+                        wrongError = new JLabel("Invalid Ticker");
+                        wrongError.setBounds(24, -40, 200, 100);
+                        wrongError.setForeground(Color.RED);
+                        jframe.add(wrongError);
+                        jframe.repaint();
+                     System.out.println("Invalid");
+                    }
+                    if(stockPrice.getValue()!=null){
+                    jframe.getContentPane().removeAll();
+                    stockPriceLabel= new JLabel(stockPrice.getValue());
+                    stockVolAvgLabel= new JLabel(stockVolAvg.getValue());
+                    stockMarketCapLabel= new JLabel(stockmktCap.getValue());
+                    stockRangeLabel= new JLabel(stockRange.getValue());
+                    stockCEOLabel= new JLabel(stockCeo.getValue());
+                    removeFromWatchlist= new JButton("Remove from Watchlist");
+                    backToChoices= new JButton("Back");
+                    stockPriceLabel.setBounds(20, 20, 170, 20);
+                    stockVolAvgLabel.setBounds(20, 35, 170, 20);
+                    stockMarketCapLabel.setBounds(20, 50, 170, 20);
+                    stockRangeLabel.setBounds(20, 65, 170, 20);
+                    stockCEOLabel.setBounds(20, 80, 170, 20);
+                    removeFromWatchlist.setBounds(310, 90, 170, 20);
+                    backToChoices.setBounds(310, 110, 170, 20);
+                    removeFromWatchlist.addActionListener(this);
+                    backToChoices.addActionListener(this);
+                    jframe.add(backToChoices);
+                    jframe.add(removeFromWatchlist); 
+                    jframe.add(stockPriceLabel);
+                    jframe.add(stockVolAvgLabel);
+                    jframe.add(stockMarketCapLabel);
+                    jframe.add(stockRangeLabel);
+                    jframe.add(stockCEOLabel);
+                    jframe.repaint();
+                    }
+                } catch (Exception e1) {
+                    wrongError = new JLabel("Invalid Ticker");
+                    wrongError.setBounds(24, -40, 200, 100);
+                    wrongError.setForeground(Color.RED);
+                    jframe.add(wrongError);
+                    jframe.repaint();
+                    System.out.println("Invalid");
+                }
+                
+            }
+
+            catch (MalformedURLException e1) {
+              
+            } 
+        }
+        if(e.getSource()==removeFromWatchlist){
+            user.getWatchlist().remove(watchList.getSelectedIndex()); 
         }
         db.Sererialize();
     }
